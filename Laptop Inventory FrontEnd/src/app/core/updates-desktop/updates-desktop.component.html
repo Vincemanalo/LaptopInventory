@@ -1,0 +1,130 @@
+<div class="modal" *ngIf="isEditModalOpen">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeModal()">×</span>
+      <h2>
+        {{ selectedDesktop.desktopName ? "Edit Desktop Details" : "Add New Desktop" }}
+      </h2>
+  
+      <form [formGroup]="editDesktopForm" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <mat-form-field>
+            <mat-label>Device Name</mat-label>
+            <input matInput
+            title="desktop-device"
+            id="desktopName" 
+            formControlName="desktopName" 
+            aria-label="desktop Name">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Serial Number</mat-label>
+            <input matInput
+            title="desktop-Serial-Number"
+            id="desktopSerialNumber"
+            formControlName="desktopSerialNumber"
+            placeholder="Enter Device Serial"
+            >
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Model</mat-label>
+            <input matInput
+            title="desktopModel"
+            id="desktopModel"
+            formControlName="desktopModel"
+            placeholder="Enter Desktop Model"
+            >
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Processor</mat-label>
+            <input matInput
+            title="desktopProcessor"
+            id="desktopProcessor"
+            formControlName="desktopProcessor"
+            placeholder="Enter Desktop Processor"
+            >
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>RAM</mat-label>
+            <input matInput
+            title="desktopRam"
+            id="desktopRam"
+            formControlName="desktopRam"
+            placeholder="Enter Desktop RAM"
+            >
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Storage</mat-label>
+            <input matInput
+            title="desktopStorage"
+            id="desktopStorage"
+            formControlName="desktopStorage"
+            placeholder="Enter Desktop Storage"
+            >
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Purchase Date</mat-label>
+            <input matInput [matDatepicker]="picker"
+            title="desktopPurchaseDate"
+            id="desktopPurchaseDate"
+            formControlName="desktopPurchaseDate"
+            placeholder="MM/DD/YYYY">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker panelClass="small-datepicker"></mat-datepicker>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Location</mat-label>
+            <mat-select id="desktopLocation" formControlName="desktopLocation">
+              <mat-option *ngFor="let location of locations" [value]="location">
+                {{ location }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Assigned to</mat-label>
+            <mat-select id="desktopAssignedTo" formControlName="desktopAssignedTo" (selectionChange)="onAssignedChange($event)">
+              <mat-option *ngFor="let employee of employees" [value]="employee._id">
+                {{ employee.employeeName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Condition</mat-label>
+            <mat-select
+              id="desktopCondition"
+              formControlName="desktopCondition"
+            >
+              <mat-option value="Brand New">Brand New</mat-option>
+              <mat-option value="Used">Used</mat-option>
+            </mat-select>
+          </mat-form-field>
+                          
+          </div>
+          
+        <div class="button-group">
+          <button type="button" class="cancel-btn" (click)="closeModal()">
+            Cancel
+          </button>
+          <button type="submit" [disabled]="editDesktopForm.invalid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Add Employee Modal -->
+  <div class="modal" *ngIf="isAddEmployeeOpen">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeAddEmployeeModal()">×</span>
+      <h2>Add New Employee</h2>
+      <input [(ngModel)]="newEmployee" placeholder="Enter Employee Name" />
+      <button (click)="addEmployee()">Add</button>
+    </div>
+  </div>
+  

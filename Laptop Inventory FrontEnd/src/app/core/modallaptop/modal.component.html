@@ -1,0 +1,64 @@
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeModal()">×</span>
+    <h2>Laptop Details</h2>
+
+    <form [formGroup]="editLaptopForm" (ngSubmit)="onSubmit()" class="form-wrapper">
+      <div class="form-grid">
+        <mat-form-field>
+          <mat-label>Device Name</mat-label>
+          <input matInput title="laptop-device" id="laptopName" formControlName="laptopName" placeholder="Enter Device Name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Serial Number</mat-label>
+          <input matInput title="laptop-Serial-Number" id="laptopSerialNumber" formControlName="laptopSerialNumber" placeholder="Enter Device Serial" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput title="laptop-description" id="laptopDescription" formControlName="laptopDescription" placeholder="Enter Laptop Description" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Purchase Date</mat-label>
+          <input matInput [matDatepicker]="picker" title="laptop-PD" id="laptopPurchaseDate" formControlName="laptopPurchaseDate" placeholder="MM/DD/YYYY" />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker panelClass="small-datepicker"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Location</mat-label>
+          <mat-select id="laptopLocation" formControlName="laptopLocation">
+            <mat-option value="1NK Center">1NK Center</mat-option>
+            <mat-option value="New Office">New Office</mat-option>
+            <mat-option value="Warehouse">Warehouse</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Assigned Personnel</mat-label>
+          <mat-select id="laptopAssignedTo" formControlName="laptopAssignedTo">
+            <mat-option *ngFor="let employee of employees" [value]="employee._id">
+              {{ employee.employeeName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Condition</mat-label>
+          <mat-select id="laptopCondition" formControlName="laptopCondition">
+            <mat-option value="Brand New">Brand New</mat-option>
+            <mat-option value="Used">Used</mat-option>
+            <mat-option value="Unavailable">Unavailable</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+        <button type="submit" [disabled]="editLaptopForm.invalid">Add</button>
+      </div>
+    </form>
+  </div>
+</div>

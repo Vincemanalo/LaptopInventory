@@ -1,0 +1,78 @@
+<div class="modal" *ngIf="isModalOpen">
+  <main id="main-content">
+    <section class="table-add-laptop">
+      <div class="window">
+        <span class="close-btn" (click)="closeModal()">×</span>
+
+        <h2 class="modal-title">Laptop Details</h2>
+        <div class="parent-container">
+          <div class="dashboard-card">
+            <div class="table-container">
+              <div class="table-container-scrollable">
+                <table mat-table class="mat-elevation-z8" [dataSource]="[selectedLaptop]">
+                  <ng-container matColumnDef="laptopName">
+                    <th mat-header-cell *matHeaderCellDef>Laptop Name</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopName }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopSerialNumber">
+                    <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopSerialNumber }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopDescription">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopDescription }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopPurchaseDate">
+                    <th mat-header-cell *matHeaderCellDef>Purchased Date</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopPurchaseDate | date: 'MMM d, y' }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopLocation">
+                    <th mat-header-cell *matHeaderCellDef>Location</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopLocation }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopAssignedTo">
+                    <th mat-header-cell *matHeaderCellDef>Assigned To</th>
+                    <td mat-cell *matCellDef="let laptop">{{ getEmployeeName(laptop.laptopAssignedTo) }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopAge">
+                    <th mat-header-cell *matHeaderCellDef>Laptop Age</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopAge }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="LaptopsGranted">
+                    <th mat-header-cell *matHeaderCellDef>Laptops Granted</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopsGranted }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalDuration">
+                    <th mat-header-cell *matHeaderCellDef>Total Duration</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.totalDuration }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalDurationOnGranting">
+                    <th mat-header-cell *matHeaderCellDef>Total Duration On Granting</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.totalDurationOnGranting }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="laptopCondition">
+                    <th mat-header-cell *matHeaderCellDef>Condition</th>
+                    <td mat-cell *matCellDef="let laptop">{{ laptop.laptopCondition }}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

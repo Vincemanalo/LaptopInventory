@@ -1,0 +1,403 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Search */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  gap: 5px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 350px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 120px;
+  border: none;
+  outline: none;
+  height: 30px;
+  font-size: 1rem;
+}
+
+.search-btn {
+  color: gray;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+
+/* Card */
+.dashboard-card {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 5rem;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin-top: 20px;
+  color: var(--font-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  text-align: center;
+  border-top: 1px solid rgb(145, 145, 145);
+  border-left: 1px solid rgb(145, 145, 145);
+  padding: 10px;
+}
+
+th {
+  background-color: var(--color3);
+  color: var(--header-color);
+  font-size: 16px;
+  font-weight: 600;
+  height: 50px;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+tr:nth-child(even) {
+  background-color: #EFF3EA;
+}
+
+tr:hover {
+  background-color: var(--hover-row, rgba(0, 92, 187, 0.1));
+  transition: background 0.3s ease-in-out;
+}
+
+td:first-child, th:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+td:last-child, th:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Buttons */
+.actionbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.actionbtn mat-icon {
+  font-size: 25px !important;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionbtn + .actionbtn {
+  margin-left: 4px;
+}
+
+.actionbtn:hover {
+  background-color: rgba(0, 92, 187, 0.1);
+  transition: background 0.3s ease-in-out;
+}
+
+.add-button {
+  background: #3674b5;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.add-button:hover {
+  background: #2c5e97;
+  transform: translateY(-1px);
+}
+
+.add-button p {
+  margin-left: 10px;
+}
+
+/* Modal */
+.modal button {
+  background: var(--color2);
+  color: black;
+  border: solid 1px;
+  padding: 14px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  transition: background 0.3s;
+  display: block;
+  margin: 20px auto 20px 0;
+}
+
+/* Popup Form */
+.popup-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+  background-color: white;
+  padding: 20px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.button-container button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-container .cancel {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.button-container .cancel:hover {
+  background: #c0392b;
+}
+
+.button-container .Add,
+.save {
+  background: #3498db;
+  color: #fff;
+}
+
+/* Angular Material Deep Fixes */
+::ng-deep .cdk-overlay-pane {
+  background-color: #fff !important;
+}
+
+.mat-select-trigger {
+  background-color: #fff !important;
+}
+
+::ng-deep mat-form-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.mat-paginator-navigation-previous,
+.mat-paginator-navigation-next {
+  display: none !important;
+}
+
+/* Action Button Group */
+.action-button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-button-group button {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.action-button-group button:hover {
+  background-color: rgba(0, 92, 187, 0.1);
+  transform: scale(1.05);
+}
+
+.action-button-group mat-icon {
+  font-size: 26px !important;
+  width: 26px;
+  height: 26px;
+  color: #005CBB !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  .add-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-card {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  .add-button p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-button {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .add-button p {
+    margin-left: 0;
+    margin-top: 6px;
+    font-size: 0.8rem;
+  }
+
+  .search-input {
+    font-size: 0.85rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 0.85rem;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  .search-btn {
+    font-size: 1.3rem;
+  }
+}

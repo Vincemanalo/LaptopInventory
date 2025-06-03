@@ -1,0 +1,65 @@
+<mat-toolbar class="navbar">
+  <button  mat-icon-button (click)="toggleSidenav()" style="background-color: transparent;">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="margin-left: 16px;"><strong>{{ headerTitle }}</strong></span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #sidenav
+    [mode]="'over'"
+    [(opened)]="isSidenavOpen"
+    (backdropClick)="onBackdropClick()"
+    class="sidenav"
+  >
+    <div class="image-wrapper">
+      <div class="sidebar-logo">
+        <img src="assets/RecreatedFIGMAlogo.PNG" alt="Logo" class="sidebar-logo" />
+      </div>
+    </div>
+
+    <mat-nav-list class="sidenav-list">
+      <a mat-list-item routerLink="/main/dashboard">
+        <mat-icon>home</mat-icon>
+        <strong>Home</strong>
+      </a>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-icon>devices</mat-icon>
+          <strong>Assets</strong>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/main/laptop">
+            <mat-icon>laptop</mat-icon>
+            <strong>Laptops</strong>
+          </a>
+          <a mat-list-item routerLink="/main/desktop">
+            <mat-icon>desktop_windows</mat-icon>
+            <strong>Desktop</strong>
+          </a>
+          <a mat-list-item routerLink="/main/server">
+            <mat-icon>dns</mat-icon>
+            <strong>Server</strong>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <a mat-list-item routerLink="/main/user-management">
+        <mat-icon>badge</mat-icon>
+        <strong>Employees</strong>
+      </a>
+      <a mat-list-item routerLink="/login" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <strong>Logout</strong>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content" (click)="onContentClick()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<footer class="main-footer">
+  <p>Copyright &copy;2021 SITESPHIL. All Rights Reserved</p>
+</footer>

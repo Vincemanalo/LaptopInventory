@@ -1,0 +1,70 @@
+<div class="modal" *ngIf="isModalOpen">
+  <main id="main-content">
+    <section class="table-add-server">
+      <div class="window">
+        <span class="close-btn" (click)="closeModal()">×</span>
+        <h2 class="modal-title">Server Details</h2>
+
+        <div class="parent-container">
+          <div class="dashboard-card">
+            <div class="table-container">
+              <div class="table-container-scrollable">
+                <table mat-table class="mat-elevation-z8" [dataSource]="[selectedServer]">
+
+                  <ng-container matColumnDef="serverName">
+                    <th mat-header-cell *matHeaderCellDef>Server Name</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverName }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverSerialNumber">
+                    <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverSerialNumber }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverOs">
+                    <th mat-header-cell *matHeaderCellDef>Operating System</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverOs }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverProcessor">
+                    <th mat-header-cell *matHeaderCellDef>Processor</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverProcessor }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverRam">
+                    <th mat-header-cell *matHeaderCellDef>RAM</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverRam }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverPurchaseDate">
+                    <th mat-header-cell *matHeaderCellDef>Purchase Date</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverPurchaseDate | date: 'MMMM d, y' }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverLocation">
+                    <th mat-header-cell *matHeaderCellDef>Location</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverLocation }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inspectedBy">
+                    <th mat-header-cell *matHeaderCellDef>Inspected By</th>
+                    <td mat-cell *matCellDef="let server">{{ server.inspectedBy }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="serverCondition">
+                    <th mat-header-cell *matHeaderCellDef>Condition</th>
+                    <td mat-cell *matCellDef="let server">{{ server.serverCondition }}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>

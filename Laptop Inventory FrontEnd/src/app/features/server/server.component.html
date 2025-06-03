@@ -1,0 +1,106 @@
+<main id="main-content">
+    <section class="table-add-server">
+        <div class="parent-container">
+            <div class="dashboard-card">
+
+                <div class="toolbar">
+                    <button id="open-modal" class="add-button" (click)="openModal()">
+                        <mat-icon fontIcon="add_circle"></mat-icon>
+                        <span>Add New Server</span>
+                    </button>
+
+                    <mat-form-field appearance="outline" class="search-field">
+                        <mat-label>Search servers</mat-label>
+                        <input matInput type="text" [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()"
+                            placeholder="Search…" />
+                        <button mat-icon-button matSuffix *ngIf="searchKeyword.trim()" (click)="clearSearch()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <button mat-icon-button matSuffix [disabled]="!searchKeyword.trim()" (click)="onSearch()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+                <div class="table-container">
+                    <table mat-table [dataSource]="servers" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="serverName">
+                            <th mat-header-cell *matHeaderCellDef>Server Name</th>
+                            <td mat-cell *matCellDef="let server">{{ server.serverName }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="serverSerialNumber">
+                            <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+                            <td mat-cell *matCellDef="let server">{{ server.serverSerialNumber }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="serverOs">
+                            <th mat-header-cell *matHeaderCellDef>Operating System</th>
+                            <td mat-cell *matCellDef="let server">{{ server.serverOs }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="serverPurchaseDate">
+                            <th mat-header-cell *matHeaderCellDef>Purchase Date</th>
+                            <td mat-cell *matCellDef="let server">{{ server.serverPurchaseDate | date: 'MM/dd/yyyy' }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="serverLocation">
+                            <th mat-header-cell *matHeaderCellDef>Location</th>
+                            <td mat-cell *matCellDef="let server">{{ server.serverLocation }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="serverCondition">
+                            <th mat-header-cell *matHeaderCellDef>Condition</th>
+                            <td mat-cell *matCellDef="let server">{{ server.serverCondition }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="inspectedBy">
+                            <th mat-header-cell *matHeaderCellDef>Inspected By</th>
+                            <td mat-cell *matCellDef="let server">{{ server.inspectedBy }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Actions</th>
+                            <td mat-cell *matCellDef="let server">
+                                <div class="action-button-group">
+                                    <button mat-icon-button (click)="openInfoModal(server)" aria-label="View Info">
+                                        <mat-icon>info</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="openEditModal(server)" aria-label="Edit">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="openDeleteModal(server)" aria-label="Delete">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+
+                    <mat-paginator
+                    [length]="totalRecords"
+                    [pageSize]="pageSize"
+                    [pageIndex]="pageNo - 1"
+                    [pageSizeOptions]="[5, 10, 25, 50]"
+                    (page)="onPageChange($event)">
+                  </mat-paginator>
+                                              
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+    <app-modal-server *ngIf="isModalOpen" (closeModalEvent)="closeModal()"></app-modal-server>
+    <app-modalinfo-server *ngIf="isInfoModalOpen" [selectedServer]="selectedServer"
+        (closeModalEvent)="closeInfoModal()"></app-modalinfo-server>
+    <app-update-server *ngIf="isEditModalOpen" [selectedServer]="selectedServer" (closeModalEvent)="closeEditModal()"
+        (refreshTableEvent)="getServers()"></app-update-server>
+    <app-delete-server *ngIf="isDeleteModalOpen" [selectedServer]="selectedServer"
+        (closeModalEvent)="closeDeleteModal()" (refreshTableEvent)="getServers()"></app-delete-server>
+</main>

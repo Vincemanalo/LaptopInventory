@@ -1,0 +1,111 @@
+<main id="main-content">
+  <section class="table-add-laptop">
+    <div class="parent-container">
+      <div class="dashboard-card">
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <button id="open-modal" class="add-button" (click)="openModal()">
+            <mat-icon fontIcon="add_circle"></mat-icon>
+            <span>Add New Laptop</span>
+          </button>
+
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search laptops</mat-label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="searchKeyword"
+              (keyup.enter)="onSearch()"
+              placeholder="Search…"
+              aria-label="Search laptops"
+            />
+            <button mat-icon-button matSuffix type="button" (click)="clearSearch()" *ngIf="searchKeyword.trim()" aria-label="Clear search">
+              <mat-icon>close</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix type="button" (click)="onSearch()" [disabled]="!searchKeyword.trim()" aria-label="Search">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table mat-table class="mat-elevation-z8" [dataSource]="laptops">
+            <ng-container matColumnDef="laptopName">
+              <th mat-header-cell *matHeaderCellDef>Laptop Name</th>
+              <td mat-cell *matCellDef="let laptop">{{ laptop.laptopName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="laptopSerialNumber">
+              <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+              <td mat-cell *matCellDef="let laptop">{{ laptop.laptopSerialNumber }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="laptopDescription">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let laptop">{{ laptop.laptopDescription }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="laptopPurchaseDate">
+              <th mat-header-cell *matHeaderCellDef>Purchased Date</th>
+              <td mat-cell *matCellDef="let laptop">{{ laptop.laptopPurchaseDate | date: 'MMM d, y' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalDurationOnGranting">
+              <th mat-header-cell *matHeaderCellDef>Total Duration On Granting</th>
+              <td mat-cell *matCellDef="let laptop">
+                {{ laptop.totalDurationOnGranting }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="laptopAssignedTo">
+              <th mat-header-cell *matHeaderCellDef>Assigned To</th>
+              <td mat-cell *matCellDef="let laptop">{{ getEmployeeName(laptop.laptopAssignedTo) }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="laptopCondition">
+              <th mat-header-cell *matHeaderCellDef>Condition</th>
+              <td mat-cell *matCellDef="let laptop">{{ laptop.laptopCondition }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let laptop">
+                <div class="action-button-group">
+                  <button mat-icon-button (click)="openModalinfo(laptop)" aria-label="View Info">
+                    <mat-icon>info</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="openEditModal(laptop)" aria-label="Edit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="openDeleteModal(laptop)" aria-label="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator
+          [length]="totalRecords"
+          [pageSize]="pageSize"
+          [pageIndex]="pageNo - 1"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="onPageChange($event)">
+        </mat-paginator>
+                
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <app-modal *ngIf="isModalOpen" (closeModalEvent)="closeModal()"></app-modal>
+  <app-modalinfo *ngIf="isModalinfoOpen" [selectedLaptop]="selectedLaptop" (closeModalEvent)="closeModalinfo()"></app-modalinfo>
+  <app-updates *ngIf="isEditModalOpen" [selectedLaptop]="selectedLaptop" (refreshTableEvent)="getLaptops()" (closeModalEvent)="closeEditModal()"></app-updates>
+  <app-delete *ngIf="isDeleteModalOpen" [selectedLaptop]="selectedLaptop" (refreshTableEvent)="getLaptops()" (closeModalEvent)="closeDeleteModal()"></app-delete>
+</main>

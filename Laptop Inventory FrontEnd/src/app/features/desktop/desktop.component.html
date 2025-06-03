@@ -1,0 +1,108 @@
+<main id="main-content">
+  <section class="table-add-desktop">
+    <div class="parent-container">
+      <div class="dashboard-card">
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <button class="add-button" (click)="openModal()">
+            <mat-icon fontIcon="add_circle"></mat-icon>
+            <span>Add New Desktop</span>
+          </button>
+
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search laptops</mat-label>
+            <input matInput type="text" placeholder="Search…" [(ngModel)]="searchKeyword"
+              (keyup.enter)="onSearch()" aria-label="Search laptops" />
+            <button mat-icon-button matSuffix type="button" (click)="clearSearch()" *ngIf="searchKeyword.trim()"
+              aria-label="Clear search">
+              <mat-icon>close</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix type="button" (click)="onSearch()" [disabled]="!searchKeyword.trim()"
+              aria-label="Search">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table mat-table class="mat-elevation-z8" [dataSource]="desktop">
+
+            <ng-container matColumnDef="desktopName">
+              <th mat-header-cell *matHeaderCellDef sticky>Desktop Name</th>
+              <td mat-cell *matCellDef="let d">{{ d.desktopName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desktopSerialNumber">
+              <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+              <td mat-cell *matCellDef="let d">{{ d.desktopSerialNumber }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desktopStorage">
+              <th mat-header-cell *matHeaderCellDef>Storage</th>
+              <td mat-cell *matCellDef="let d">{{ d.desktopStorage }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desktopPurchaseDate">
+              <th mat-header-cell *matHeaderCellDef>Purchased Date</th>
+              <td mat-cell *matCellDef="let d">{{ d.desktopPurchaseDate | date: 'MMM d, y' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desktopLocation">
+              <th mat-header-cell *matHeaderCellDef>Location</th>
+              <td mat-cell *matCellDef="let d">{{ d.desktopLocation }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desktopAssignedTo">
+              <th mat-header-cell *matHeaderCellDef>Assigned To</th>
+              <td mat-cell *matCellDef="let d">{{ getEmployeeName(d.desktopAssignedTo) }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desktopCondition">
+              <th mat-header-cell *matHeaderCellDef>Condition</th>
+              <td mat-cell *matCellDef="let d">{{ d.desktopCondition }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let d">
+                <div class="action-button-group">
+                  <button mat-icon-button (click)="openModalinfo(d)" aria-label="View Info">
+                    <mat-icon>info</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="openEditModal(d)" aria-label="Edit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="openDeleteModal(d)" aria-label="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator
+          [length]="totalRecords"
+          [pageSize]="pageSize"
+          [pageIndex]="pageNo - 1"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="onPageChange($event)">
+        </mat-paginator>
+                                
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <app-modal *ngIf="isModalOpen" (closeModalEvent)="closeModal()"></app-modal>
+    <app-modalinfo-desktop *ngIf="isModalinfoOpen" [selectedDesktop]="selectedDesktop" (closeModalEvent)="closeModalinfo()">
+    </app-modalinfo-desktop>
+    <app-updates-desktop *ngIf="isEditModalOpen" [selectedDesktop]="selectedDesktop" (refreshTableEvent)="getDesktops()"
+      (closeModalEvent)="closeEditModal()"></app-updates-desktop>
+    <app-delete-desktop *ngIf="isDeleteModalOpen" [selectedDesktop]="selectedDesktop" (refreshTableEvent)="getDesktops()"
+      (closeModalEvent)="closeDeleteModal()"></app-delete-desktop>
+  </section>
+</main>

@@ -1,0 +1,75 @@
+<div class="modal" *ngIf="isModalOpen">
+  <main id="main-content">
+    <section class="table-add-desktop">
+      <div class="window">
+        <span class="close-btn" (click)="closeModal()">×</span>
+        <h2 class="modal-title">Desktop Details</h2>
+
+        <div class="parent-container">
+          <div class="dashboard-card">
+            <div class="table-container">
+              <div class="table-container-scrollable">
+                <table mat-table class="mat-elevation-z8" [dataSource]="[selectedDesktop]">
+
+                  <ng-container matColumnDef="desktopName">
+                    <th mat-header-cell *matHeaderCellDef>Desktop Name</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopName }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopSerialNumber">
+                    <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopSerialNumber }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopModel">
+                    <th mat-header-cell *matHeaderCellDef>Model</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopModel }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopProcessor">
+                    <th mat-header-cell *matHeaderCellDef>Processor</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopProcessor }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopRam">
+                    <th mat-header-cell *matHeaderCellDef>RAM</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopRam }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopStorage">
+                    <th mat-header-cell *matHeaderCellDef>Storage</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopStorage }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopPurchaseDate">
+                    <th mat-header-cell *matHeaderCellDef>Purchased Date</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopPurchaseDate | date: 'MMM d, y' }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopLocation">
+                    <th mat-header-cell *matHeaderCellDef>Location</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopLocation }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopAssignedTo">
+                    <th mat-header-cell *matHeaderCellDef>Assigned To</th>
+                    <td mat-cell *matCellDef="let desktop">{{ getEmployeeName(desktop.desktopAssignedTo) }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="desktopCondition">
+                    <th mat-header-cell *matHeaderCellDef>Condition</th>
+                    <td mat-cell *matCellDef="let desktop">{{ desktop.desktopCondition }}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>

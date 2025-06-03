@@ -1,0 +1,21 @@
+<div class="modal" *ngIf="isDeleteModalOpen">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeModal()">×</span>
+      <h2>
+        {{
+          selectedServer.ServerName
+            ? "Do you want to delete Server: " + selectedServer.ServerName
+            : "Are you sure that you want to delete this Server?"
+        }}
+      </h2>
+      <form [formGroup]="deleteServerForm" (ngSubmit)="onSubmit()">
+        <div class="button-group">
+          <button type="button" class="cancel-btn" (click)="closeModal()">
+            No
+          </button>
+          <button type="submit">Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
